@@ -1,0 +1,43 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7
+    container_name: magento2-db
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+      MYSQL_ROOT_PASSWORD: pass1234
+      MYSQL_DATABASE: magento2
+    volumes:
+      - db-lib:/var/lib/mysql
+      - ./log/mysql:/var/log/mysql
+    networks:
+      magento_net:
+        ipv4_address: 192.168.101.10
+  web:
+    build: ./apache2/php7.2
+    image: magento:7.2-apache
+    container_name: magento2-web
+    ports:
+      - "80:80"
+    links:
+      - db
+    volumes:
+      - ./apache2/php7.2/sites-enabled/m23a.conf:/etc/apache2/sites-enabled/m23a.conf
+      - ./magento:/var/www/magento:cached
+      - ./log/apache2:/var/log/apache2
+      - ./apache2/php7.2/php.ini:/usr/local/etc/php/php.ini
+      - ./composer:/root/.composer
+    depends_on:
+      - db
+    networks:
+      magento_net:
+        ipv4_address: 192.168.101.20
+volumes:
+  db-lib:
+networks:
+  magento_net:
+    ipam:
+      config:
+        - subnet: 192.168.101.1/24
