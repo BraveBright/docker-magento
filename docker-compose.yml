@@ -2,7 +2,7 @@ version: "3"
 services:
   db:
     image: mysql:5.7
-    container_name: magento2-db
+    container_name: m23a-db
     ports:
       - '3306:3306'
     environment:
@@ -18,7 +18,7 @@ services:
   web:
     build: ./apache2/php7.2
     image: magento:7.2-apache
-    container_name: magento2-web
+    container_name: m23a-web
     ports:
       - "80:80"
     links:
