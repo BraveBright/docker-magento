@@ -24,7 +24,7 @@ services:
     links:
       - db
     volumes:
-      - ./apache2/php7.2/sites-enabled/m23a.conf:/etc/apache2/sites-enabled/m23a.conf
+      - ./apache2/sites-enabled/m23a.conf:/etc/apache2/sites-enabled/m23a.conf
       - ./magento:/var/www/magento:cached
       - ./log/apache2:/var/log/apache2
       - ./apache2/php7.2/php.ini:/usr/local/etc/php/php.ini
