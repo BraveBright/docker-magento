@@ -18,9 +18,9 @@ RUN apt-get update \
     gd \
     gettext \
     intl \
+    mcrypt \
     mysqli \
     pcntl \
-    pdo \
     pdo_mysql \
     soap \
     sockets \
@@ -33,7 +33,7 @@ RUN apt-get update \
   && useradd -m apache \
   && chsh -s /bin/bash apache
 
-COPY conf/envvars /etc/apache2/envvars
+COPY envvars /etc/apache2/envvars
 
 RUN a2dissite 000-default.conf \
   && rm /etc/apache2/sites-available/000-default.conf \
