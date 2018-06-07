@@ -1,8 +1,8 @@
 version: "3"
 services:
   db:
-    image: mysql:latest
-    container_name: magento2-db-1.1
+    image: mysql:5.7
+    container_name: magento2-db
     ports:
       - '3306:3306'
     environment:
@@ -10,15 +10,15 @@ services:
       MYSQL_ROOT_PASSWORD: pass1234
       MYSQL_DATABASE: magento2
     volumes:
-      - ./mysql/lib:/var/lib/mysql
-      - ./mysql/log:/var/log/mysql
+      - magento2-db-lib:/var/lib/mysql
+      - magento2-db-log:/var/log/mysql
     networks:
       magento_net:
-        ipv4_address: 192.168.103.10
+        ipv4_address: 192.168.101.10
   web:
     build: ./apache2
     image: magento2:apache
-    container_name: magento2-web-1.1
+    container_name: magento2-web
     ports:
       - "80:80"
     links:
@@ -32,11 +32,12 @@ services:
       - db
     networks:
       magento_net:
-        ipv4_address: 192.168.103.20
+        ipv4_address: 192.168.101.20
 volumes:
-  db-data:
+  magento2-db-lib:
+  magento2-db-log:
 networks:
   magento_net:
     ipam:
       config:
-        - subnet: 192.168.103.1/24
+        - subnet: 192.168.101.1/24
