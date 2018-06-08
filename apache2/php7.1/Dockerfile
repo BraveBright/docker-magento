@@ -41,4 +41,4 @@ RUN a2dissite 000-default.conf \
 
 # USER apache
 
-WORKDIR /var/www/html
+WORKDIR /var/www/magento
