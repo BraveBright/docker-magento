@@ -39,6 +39,4 @@ RUN a2dissite 000-default.conf \
   && rm /etc/apache2/sites-available/000-default.conf \
   && rm /etc/apache2/sites-available/default-ssl.conf
 
-# USER apache
-
-WORKDIR /var/www/html
+WORKDIR /var/www/magento
