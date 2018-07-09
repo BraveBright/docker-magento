@@ -25,7 +25,7 @@ services:
       - db
     volumes:
       - ./apache2/magento.conf:/etc/apache2/sites-enabled/magento.conf
-      - ~/Documents/magento/2.2:/var/www/magento:cached
+      - ./magento:/var/www/magento:cached
       - ./log/apache2:/var/log/apache2
       - ./apache2/php7.1/php.ini:/usr/local/etc/php/php.ini
       - ./composer:/root/.composer
