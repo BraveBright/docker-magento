@@ -3,15 +3,12 @@ services:
   db:
     image: mysql:5.7
     container_name: m22-db
-    ports:
-      - '3306:3306'
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
       MYSQL_ROOT_PASSWORD: pass1234
       MYSQL_DATABASE: magento2
     volumes:
       - m22-db:/var/lib/mysql
-      - ./log/mysql:/var/log/mysql
     networks:
       magento_net:
         ipv4_address: 192.168.101.10
@@ -19,16 +16,13 @@ services:
     build: ./apache2/php7.1
     image: magento:7.1-apache
     container_name: m22-web
-    ports:
-      - "80:80"
     links:
       - db
     volumes:
       - ./apache2/magento.conf:/etc/apache2/sites-enabled/magento.conf
       - ./magento:/var/www/magento:cached
-      - ./log/apache2:/var/log/apache2
       - ./apache2/php7.1/php.ini:/usr/local/etc/php/php.ini
-      - ./composer:/root/.composer
+      - m22-composer:/root/.composer
     depends_on:
       - db
     networks:
@@ -36,6 +30,7 @@ services:
         ipv4_address: 192.168.101.20
 volumes:
   m22-db:
+  m22-composer:
 networks:
   magento_net:
     ipam:
