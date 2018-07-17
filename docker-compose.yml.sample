@@ -12,6 +12,8 @@ services:
     networks:
       magento_net:
         ipv4_address: 192.168.101.10
+    logging:
+      driver: json-file
   web:
     build: ./apache2/phpx.x
     image: magento:x.x-apache
@@ -28,6 +30,8 @@ services:
     networks:
       magento_net:
         ipv4_address: 192.168.101.20
+    logging:
+      driver: json-file
 volumes:
   xxx-db:
   xxx-composer:
