@@ -12,6 +12,8 @@ services:
     networks:
       magento_net:
         ipv4_address: 192.168.101.10
+    logging:
+      driver: json-file
   web:
     build: ./apache2/phpx.x
     image: magento:x.x-apache
@@ -19,7 +21,7 @@ services:
     links:
       - db
     volumes:
-      - ./apache2/magento.conf:/etc/apache2/magento.conf
+      - ./apache2/magento.conf:/etc/apache2/sites-enabled/magento.conf
       - ./magento:/var/www/magento:cached
       - ./apache2/phpx.x/php.ini:/usr/local/etc/php/php.ini
       - xxx-composer:/root/.composer
@@ -28,6 +30,8 @@ services:
     networks:
       magento_net:
         ipv4_address: 192.168.101.20
+    logging:
+      driver: json-file
 volumes:
   xxx-db:
   xxx-composer:
